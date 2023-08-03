@@ -10,7 +10,7 @@ class Transaction
     public readonly float $amount;
     public readonly string $currency;
 
-    public function __construct(stdClass $transactionDetails)  //update currency to ENUM
+    public function __construct(stdClass $transactionDetails)
     {
         $this->currency = $transactionDetails->currency;
         $this->amount = $transactionDetails->amount;

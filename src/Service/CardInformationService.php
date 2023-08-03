@@ -3,18 +3,13 @@
 namespace App\Service;
 
 use App\DataProvider\AbstractHttpDataProvider;
-use App\DataProvider\JsonHttpDataProvider;
 use App\Interface\CardInformationProviderInterface;
 use stdClass;
 
-class CardInformationProviderService implements CardInformationProviderInterface
+class CardInformationService implements CardInformationProviderInterface
 {
-    private const BASE_URL = "https://lookup.binlist.net/";
-    private AbstractHttpDataProvider $dataProvider;
-
-    public function __construct()
+    public function __construct(private readonly AbstractHttpDataProvider $dataProvider)
     {
-        $this->dataProvider = new JsonHttpDataProvider(self::BASE_URL, AbstractHttpDataProvider::GET);
     }
 
     public function getCardInformation(string $cardNumber): stdClass

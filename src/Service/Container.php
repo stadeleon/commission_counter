@@ -8,6 +8,10 @@ class Container
 {
     private array $services = [];
 
+    public function __construct(private readonly array $config)
+    {
+    }
+
     public function register(string $serviceName, callable $callback): void
     {
         $this->services[$serviceName] = $callback;
@@ -22,6 +26,11 @@ class Container
         $serviceCallback = $this->services[$serviceName];
 
         return $serviceCallback($this);
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
     }
 
 }

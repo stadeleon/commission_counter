@@ -3,7 +3,7 @@
 namespace App\Tests\Service;
 
 use App\DataProvider\JsonHttpDataProvider;
-use App\Service\CardInformationProviderService;
+use App\Service\CardInformationService;
 use PHPUnit\Framework\TestCase;
 
 class CardInformationServiceTest extends TestCase
@@ -23,7 +23,7 @@ class CardInformationServiceTest extends TestCase
         $this->mockDataProvider->method('getJson')->willReturn((object) ['mock' => 'response']);
 
         // Act
-        $cardInformationService = new CardInformationProviderService();
+        $cardInformationService = new CardInformationService();
 
     }
 }

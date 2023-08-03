@@ -7,11 +7,9 @@ use stdClass;
 class Card
 {
     public string $countryCode;
-    private stdClass $cardData;
 
-    public function __construct(stdClass $cardData)
+    public function __construct(private readonly stdClass $cardData)
     {
-        $this->cardData = $cardData;
         $this->countryCode = $cardData->country->alpha2;
     }
 
