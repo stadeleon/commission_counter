@@ -2,6 +2,7 @@
 
 use App\DataProvider\AbstractHttpDataProvider;
 use App\DataProvider\JsonHttpDataProvider;
+use App\Factory\CardFactory;
 use App\Factory\TransactionFactory;
 use App\Service\CardInformationService;
 use App\Service\CardValidatorService;
@@ -19,6 +20,7 @@ return [
             return new CommissionCounterService(
                 $container->get(TransactionFactory::class),
                 $container->get(CardInformationService::class),
+                $container->get(CardFactory::class),
                 $container->get(CardValidatorService::class),
                 $container->get(ExchangeRatesService::class)
             );
@@ -33,6 +35,9 @@ return [
         },
         TransactionFactory::class => function ($container) {
             return new TransactionFactory();
+        },
+        CardFactory::class => function ($container) {
+            return new CardFactory();
         },
         CardValidatorService::class => function ($container) {
             return new CardValidatorService();

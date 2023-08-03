@@ -2,19 +2,20 @@
 
 namespace App\Service;
 
-use App\Entity\Card;
-use App\Factory\TransactionFactory;
+use App\Interface\CardFactoryInterface;
 use App\Interface\CardInformationProviderInterface;
 use App\Interface\CardValidatorInterface;
 use App\Interface\ExchangeRatesProviderInterface;
+use App\Interface\TransactionFactoryInterface;
 use Exception;
 use Generator;
 
 class CommissionCounterService
 {
     public function __construct(
-        private readonly TransactionFactory               $transactionFactory,
+        private readonly TransactionFactoryInterface      $transactionFactory,
         private readonly CardInformationProviderInterface $cardInformationService,
+        private readonly CardFactoryInterface             $cardFactory,
         private readonly CardValidatorInterface           $cardValidatorService,
         private readonly ExchangeRatesProviderInterface   $ratesApiService,
     )
@@ -37,7 +38,7 @@ class CommissionCounterService
                 }
                 $transaction = $this->transactionFactory->createTransaction($row);
                 $cardInfo = $this->cardInformationService->getCardInformation($transaction->bin);
-                $card = new Card($cardInfo);
+                $card = $this->cardFactory->createCard($cardInfo);
                 $this->cardValidatorService->setCard($card);
                 $isEuCard = $this->cardValidatorService->isEuropeIssuedCard();
                 $exchangeRate = $this->ratesApiService->getExchangeRate($transaction->currency, 'EUR');

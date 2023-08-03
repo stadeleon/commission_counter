@@ -3,12 +3,13 @@
 namespace App\Factory;
 
 use App\Entity\Transaction;
+use App\Interface\TransactionFactoryInterface;
 use Exception;
 use stdClass;
 
-class TransactionFactory
+class TransactionFactory implements TransactionFactoryInterface
 {
-    public function createTransaction($row): Transaction
+    public function createTransaction(string $row): Transaction
     {
         $transactionData = json_decode($row);
 
