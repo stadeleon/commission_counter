@@ -4,7 +4,7 @@ namespace App\Interface;
 
 use stdClass;
 
-interface CardInformationInterface
+interface CardInformationProviderInterface
 {
     public function getCardInformation(string $cardNumber): stdClass;
 }

@@ -20,6 +20,8 @@ class JsonHttpDataProvider extends AbstractHttpDataProvider
 
     public function setInlineRequestParams(array $params): void
     {
+        $this->inlineParams = '';
+
         foreach ($params as $value) {
             $this->inlineParams .= "/{$value}";
         }
@@ -29,6 +31,7 @@ class JsonHttpDataProvider extends AbstractHttpDataProvider
 
     public function setHeaders(array $headersArray): void
     {
+        $this->headers = [];
         foreach ($headersArray as $key => $value) {
             $this->headers[] = "{$key}: {$value}";
         }

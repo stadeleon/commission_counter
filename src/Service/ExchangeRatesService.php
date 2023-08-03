@@ -4,10 +4,10 @@ namespace App\Service;
 
 use App\DataProvider\AbstractHttpDataProvider;
 use App\DataProvider\JsonHttpDataProvider;
-use App\Interface\RatesApiInterface;
+use App\Interface\ExchangeRatesProviderInterface;
 use App\Interface\RequestInterface;
 
-class RatesApiService implements RatesApiInterface
+class ExchangeRatesService implements ExchangeRatesProviderInterface
 {
     private const BASE_URL = 'https://api.apilayer.com/exchangerates_data/latest';
     private RequestInterface $dataProvider;

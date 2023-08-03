@@ -2,7 +2,7 @@
 
 namespace App\Interface;
 
-interface RatesApiInterface
+interface ExchangeRatesProviderInterface
 {
     public function getExchangeRate(string $baseCurrency, string $exchangeCurrency): float;
 }

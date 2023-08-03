@@ -1,12 +1,14 @@
 <?php
 require 'vendor/autoload.php';
-
+require 'injectionLoader.php';
 
 use App\Service\CommissionCounterService;
+use App\Service\Container;
 
-$commissionCounter = new CommissionCounterService();
+/** @var Container $container */
+$commissionCounterService = $container->get(CommissionCounterService::class);
 
 $file_handler = fopen($argv[1], 'r');
-$commissionCounter->iterate($file_handler);
+$commissionCounterService->iterate($file_handler);
 
 fclose($file_handler);

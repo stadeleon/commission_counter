@@ -3,12 +3,24 @@
 namespace App\Service;
 
 use App\Entity\Card;
-use App\Entity\Transaction;
+use App\Factory\TransactionFactory;
+use App\Interface\CardInformationProviderInterface;
+use App\Interface\CardValidatorInterface;
+use App\Interface\ExchangeRatesProviderInterface;
+use Exception;
 use Generator;
-use stdClass;
 
 class CommissionCounterService
 {
+    public function __construct(
+        private readonly TransactionFactory               $transactionFactory,
+        private readonly CardInformationProviderInterface $cardInformationService,
+        private readonly CardValidatorInterface           $cardValidatorService,
+        private readonly ExchangeRatesProviderInterface   $ratesApiService,
+    )
+    {
+    }
+
     private function iterator($file_handle): Generator
     {
         while (!feof($file_handle)) {
@@ -19,24 +31,28 @@ class CommissionCounterService
     public function iterate($source): void
     {
         foreach ($this->iterator($source) as $row) {
-            $transactionData = json_decode($row);
+            try {
+                if (!$row) {
+                    continue;
+                }
+                $transaction = $this->transactionFactory->createTransaction($row);
+                $cardInfo = $this->cardInformationService->getCardInformation($transaction->bin);
+                $card = new Card($cardInfo);
+                $this->cardValidatorService->setCard($card);
+                $isEuCard = $this->cardValidatorService->isEuropeIssuedCard();
+                $exchangeRate = $this->ratesApiService->getExchangeRate($transaction->currency, 'EUR');
+                $commission = $this->countCommission($transaction->amount, $exchangeRate, $isEuCard);
 
-            if (!$transactionData && !is_a($transactionData, stdClass::class)) {
-                continue;
+                print "$commission \n";
+            } catch (Exception $e) {
+                print $e->getMessage();
             }
-
-            $transaction = new Transaction(json_decode($row));
-            $commission = $this->countCommission($transaction);
-            print "$commission \n";
         }
     }
 
-    private function countCommission(Transaction $transaction): float
+    private function countCommission(float $amount, float $exchangeRate, bool $isEuCard): float
     {
-        $card = new Card((new CardInformationService())->getCardInformation($transaction->bin));
-        $isEuCard = (new CardValidatorService($card))->isEuropeIssuedCard();
-        $exchangeRate = (new RatesApiService())->getExchangeRate($transaction->currency, 'EUR');
-        $eurAmount = $transaction->amount * $exchangeRate;
+        $eurAmount = $amount * $exchangeRate;
 
         return $eurAmount * ($isEuCard ? 0.01 : 0.02);
     }

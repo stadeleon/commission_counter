@@ -4,10 +4,10 @@ namespace App\Service;
 
 use App\DataProvider\AbstractHttpDataProvider;
 use App\DataProvider\JsonHttpDataProvider;
-use App\Interface\CardInformationInterface;
+use App\Interface\CardInformationProviderInterface;
 use stdClass;
 
-class CardInformationService implements CardInformationInterface
+class CardInformationProviderService implements CardInformationProviderInterface
 {
     private const BASE_URL = "https://lookup.binlist.net/";
     private AbstractHttpDataProvider $dataProvider;
