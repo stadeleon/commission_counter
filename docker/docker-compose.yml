@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  php-fpm:
+    container_name: dary-php-fpm
+    build:
+      context: ./../
+      dockerfile: ./docker/php-fpm/Dockerfile
+      args:
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - INSTALL_XDEBUG=${INSTALL_XDEBUG}
+    environment:
+      PHP_IDE_CONFIG: "serverName=Docker"
+    volumes:
+      - ./../vendor:/var/www/vendor/
+      - ./../:/var/www/
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:8080
