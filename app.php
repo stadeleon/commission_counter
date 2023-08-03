@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-require 'injectionLoader.php';
+require 'config/injectionLoader.php';
 
 use App\Service\CommissionCounterService;
 use App\Service\Container;
