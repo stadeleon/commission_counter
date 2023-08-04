@@ -9,10 +9,13 @@ class JsonHttpDataProvider extends AbstractHttpDataProvider
     public function getJson(): stdClass
     {
         $response = parent::get();
+
         return json_decode($response);
     }
     public function setGetRequestParams(array $params): void
     {
+        $this->getParams = [];
+
         foreach ($params as $key => $value) {
             $this->getParams[] = "{$key}={$value}";
         }
@@ -32,6 +35,7 @@ class JsonHttpDataProvider extends AbstractHttpDataProvider
     public function setHeaders(array $headersArray): void
     {
         $this->headers = [];
+
         foreach ($headersArray as $key => $value) {
             $this->headers[] = "{$key}: {$value}";
         }
