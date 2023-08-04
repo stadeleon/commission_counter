@@ -5,7 +5,7 @@ use App\DataProvider\JsonHttpDataProvider;
 use App\Factory\CardFactory;
 use App\Factory\TransactionFactory;
 use App\Service\CardInformationService;
-use App\Service\CardValidatorService;
+use App\Service\CardValidationService;
 use App\Service\CommissionCounterService;
 use App\Service\ExchangeRatesService;
 
@@ -21,7 +21,7 @@ return [
                 $container->get(TransactionFactory::class),
                 $container->get(CardInformationService::class),
                 $container->get(CardFactory::class),
-                $container->get(CardValidatorService::class),
+                $container->get(CardValidationService::class),
                 $container->get(ExchangeRatesService::class)
             );
         },
@@ -39,8 +39,8 @@ return [
         CardFactory::class => function ($container) {
             return new CardFactory();
         },
-        CardValidatorService::class => function ($container) {
-            return new CardValidatorService();
+        CardValidationService::class => function ($container) {
+            return new CardValidationService();
         },
         ExchangeRatesService::class => function ($container) {
             $base_url = $container->getConfig()['exchange_rates_base_url'];

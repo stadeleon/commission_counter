@@ -2,8 +2,8 @@
 require 'vendor/autoload.php';
 require 'config/injectionLoader.php';
 
+use App\Container\Container;
 use App\Service\CommissionCounterService;
-use App\Service\Container;
 
 /** @var Container $container */
 $commissionCounterService = $container->get(CommissionCounterService::class);

@@ -1,5 +1,6 @@
 <?php
-use App\Service\Container;
+
+use App\Container\Container;
 
 $config = require 'config.php';
 
