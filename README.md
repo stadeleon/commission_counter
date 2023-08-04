@@ -10,4 +10,5 @@
 `make up` it will build and start docker container
 - enter container using command `make app_bash`
 - run script `php add.php input.txt`
-- to run tests enter `vendor/bin/phpunit` 
+- to run Unit tests enter `vendor/bin/phpunit --testsuite "Unit Tests"` 
+- to run Integration test enter `vendor/bin/phpunit --testsuite "Integration Tests"` 

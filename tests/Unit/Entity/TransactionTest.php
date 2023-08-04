@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Entity;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Transaction;
+use Faker\Factory;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Faker\Factory;
 
 class TransactionTest extends TestCase
 {

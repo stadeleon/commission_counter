@@ -11,6 +11,6 @@ trait CardValidationHelper
 
     public function isEuropeIssuedCard(string $countryCode): bool
     {
-        return in_array($countryCode, self::$euCountriesList);
+        return in_array(strtoupper($countryCode), self::$euCountriesList);
     }
 }

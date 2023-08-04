@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Factory;
+namespace App\Tests\Unit\Factory;
 
 use App\Entity\Transaction;
 use App\Factory\TransactionFactory;
@@ -8,7 +8,6 @@ use Exception;
 use Faker\Factory;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class TransactionFactoryTest extends TestCase
 {

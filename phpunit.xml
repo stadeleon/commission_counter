@@ -5,8 +5,11 @@
         bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="App Tests">
-            <directory>tests</directory>
+        <testsuite name="Unit Tests">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration Tests">
+            <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
 </phpunit>

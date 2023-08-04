@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Unit\Service;
 
 use App\Entity\Card;
 use App\Entity\Transaction;
@@ -10,8 +10,8 @@ use App\Service\CardInformationService;
 use App\Service\CardValidationService;
 use App\Service\CommissionCounterService;
 use App\Service\ExchangeRatesService;
-use PHPUnit\Framework\TestCase;
 use Faker\Factory;
+use PHPUnit\Framework\TestCase;
 
 class CommissionCounterServiceTest extends TestCase
 {
@@ -84,12 +84,18 @@ class CommissionCounterServiceTest extends TestCase
         $reflectionMethod = new \ReflectionMethod(CommissionCounterService::class, 'countCommission');
         $reflectionMethod->setAccessible(true);
 
-        $expectedCommission = $expectedTransactionAmount * $expectedExchangeRate * ($expectedIsEuCard ? 0.01 : 0.02);
+        $expectedCommission = self::countCommission($expectedTransactionAmount, $expectedExchangeRate, $expectedIsEuCard);
 
         $actualCommission = $reflectionMethod->invoke($this->commissionCounterService, $expectedTransactionAmount, $expectedExchangeRate, $expectedIsEuCard);
 
         $this->assertEquals($expectedCommission, $actualCommission, 'Commission calculation is incorrect.');
     }
 
-
+    private static function countCommission(float $amount, float $exchangeRate, bool $isEuCard): float
+    {
+        $eurAmount = $amount * $exchangeRate;
+        $rate = $isEuCard ? 0.01 : 0.02;
+        $commission = round(($eurAmount * $rate), 2, PHP_ROUND_HALF_UP);
+        return number_format($commission, 2, '.', '');
+    }
 }

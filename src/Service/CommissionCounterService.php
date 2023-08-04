@@ -53,7 +53,8 @@ class CommissionCounterService
     private function countCommission(float $amount, float $exchangeRate, bool $isEuCard): float
     {
         $eurAmount = $amount * $exchangeRate;
-
-        return $eurAmount * ($isEuCard ? 0.01 : 0.02);
+        $rate = $isEuCard ? 0.01 : 0.02;
+        $commission = round(($eurAmount * $rate), 2, PHP_ROUND_HALF_UP);
+        return number_format($commission, 2, '.', '');
     }
 }

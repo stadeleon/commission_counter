@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Tests\Factory;
+namespace App\Tests\Unit\Factory;
 
 use App\Entity\Card;
 use App\Factory\CardFactory;
 use Faker\Factory;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class CardFactoryTest extends TestCase
 {

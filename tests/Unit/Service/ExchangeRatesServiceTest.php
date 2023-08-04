@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Unit\Service;
 
 use App\DataProvider\JsonHttpDataProvider;
 use App\Service\ExchangeRatesService;
-use PHPUnit\Framework\TestCase;
-use Faker\Factory;
 use Faker;
+use Faker\Factory;
+use PHPUnit\Framework\TestCase;
 
 class ExchangeRatesServiceTest extends TestCase
 {
